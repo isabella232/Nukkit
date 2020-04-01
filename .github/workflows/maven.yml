@@ -26,6 +26,6 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: nukkit_v1.5.jar
+        name: nukkit-1.5.jar
         # Directory containing files to upload
-        path: ./target
+        path: ./target/nukkit-1.0-SNAPSHOT.jar
