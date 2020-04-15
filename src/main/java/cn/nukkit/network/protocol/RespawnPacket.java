@@ -27,16 +27,16 @@ public class RespawnPacket extends DataPacket {
         this.x = v.x;
         this.y = v.y;
         this.z = v.z;
-        this.respawnState = this.getByte();
-        this.runtimeEntityId = this.getEntityRuntimeId();
+//        this.respawnState = this.getByte();
+//        this.runtimeEntityId = this.getEntityRuntimeId();
     }
 
     @Override
     public void encode() {
         this.reset();
         this.putVector3f(this.x, this.y, this.z);
-        this.putByte((byte) respawnState);
-        this.putEntityRuntimeId(runtimeEntityId);
+//        this.putByte((byte) respawnState);
+//        this.putEntityRuntimeId(runtimeEntityId);
     }
 
     @Override
