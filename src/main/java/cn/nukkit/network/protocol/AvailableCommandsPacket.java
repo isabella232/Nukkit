@@ -39,14 +39,14 @@ public class AvailableCommandsPacket extends DataPacket {
 
     public static final int ARG_TYPE_FILE_PATH = 14;
 
-    public static final int ARG_TYPE_STRING = 29;
+    public static final int ARG_TYPE_STRING = 15;
     public static final int ARG_TYPE_BLOCK_POSITION = 37;
-    public static final int ARG_TYPE_POSITION = 38;
+    public static final int ARG_TYPE_POSITION = 16;
 
-    public static final int ARG_TYPE_MESSAGE = 41;
-    public static final int ARG_TYPE_RAWTEXT = 43;
-    public static final int ARG_TYPE_JSON = 47;
-    public static final int ARG_TYPE_COMMAND = 54;
+    public static final int ARG_TYPE_MESSAGE = 19;
+    public static final int ARG_TYPE_RAWTEXT = 21;
+    public static final int ARG_TYPE_JSON = 24;
+    public static final int ARG_TYPE_COMMAND = 31;
 
     public Map<String, CommandDataVersions> commands;
     public final Map<String, List<String>> softEnums = new HashMap<>();
@@ -277,11 +277,12 @@ public class AvailableCommandsPacket extends DataPacket {
 
                     putLInt(type);
                     putBoolean(parameter.optional);
-                    putByte(parameter.options); // TODO: 19/03/2019 Bit flags. Only first bit is used for GameRules.
+//                    putByte(parameter.options); // TODO: 19/03/2019 Bit flags. Only first bit is used for GameRules.
                 }
             }
         });
 
+/*
         this.putUnsignedVarInt(softEnums.size());
 
         softEnums.forEach((name, values) -> {
@@ -289,5 +290,6 @@ public class AvailableCommandsPacket extends DataPacket {
             this.putUnsignedVarInt(values.size());
             values.forEach(this::putString);
         });
+*/
     }
 }
