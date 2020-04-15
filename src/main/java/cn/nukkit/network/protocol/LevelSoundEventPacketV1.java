@@ -8,14 +8,7 @@ import lombok.ToString;
 public class LevelSoundEventPacketV1 extends LevelSoundEventPacket {
     public static final byte NETWORK_ID = ProtocolInfo.LEVEL_SOUND_EVENT_PACKET_V1;
 
-    public int sound;
-    public float x;
-    public float y;
-    public float z;
-    public int extraData = -1; //TODO: Check name
     public int pitch = 1; //TODO: Check name
-    public boolean isBabyMob;
-    public boolean isGlobal;
 
     @Override
     public void decode() {

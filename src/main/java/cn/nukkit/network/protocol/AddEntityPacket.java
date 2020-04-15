@@ -20,7 +20,7 @@ import lombok.ToString;
 public class AddEntityPacket extends DataPacket {
     public static final byte NETWORK_ID = ProtocolInfo.ADD_ENTITY_PACKET;
 
-    public static ImmutableMap<String, Integer> LEGACY_IDS = ImmutableMap.<Integer, String>builder()
+    public static ImmutableMap<String, Integer> LEGACY_IDS = ImmutableMap.<String, Integer>builder()
             .put("minecraft:npc", 51)
             .put("minecraft:player", 63)
             .put("minecraft:wither_skeleton", EntityWitherSkeleton.NETWORK_ID)

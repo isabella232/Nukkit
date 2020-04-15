@@ -489,8 +489,17 @@ public class Level implements ChunkManager, Metadatable {
     }
 
     public void addLevelSoundEvent(Vector3 pos, int type, int data, int entityType, boolean isBaby, boolean isGlobal) {
-        String identifier = AddEntityPacket.LEGACY_IDS.getOrDefault(entityType, ":");
-        addLevelSoundEvent(pos, type, data, identifier, isBaby, isGlobal);
+        LevelSoundEventPacketV1 pk = new LevelSoundEventPacketV1();
+        pk.sound = type;
+        pk.extraData = data;
+        pk.pitch = entityType;
+        pk.x = (float) pos.x;
+        pk.y = (float) pos.y;
+        pk.z = (float) pos.z;
+        pk.isGlobal = isGlobal;
+        pk.isBabyMob = isBaby;
+
+        this.addChunkPacket(pos.getFloorX() >> 4, pos.getFloorZ() >> 4, pk);
     }
 
     public void addLevelSoundEvent(Vector3 pos, int type) {
@@ -509,17 +518,7 @@ public class Level implements ChunkManager, Metadatable {
     }
 
     public void addLevelSoundEvent(Vector3 pos, int type, int data, String identifier, boolean isBaby, boolean isGlobal) {
-        LevelSoundEventPacket pk = new LevelSoundEventPacket();
-        pk.sound = type;
-        pk.extraData = data;
-        pk.entityIdentifier = identifier;
-        pk.x = (float) pos.x;
-        pk.y = (float) pos.y;
-        pk.z = (float) pos.z;
-        pk.isGlobal = isGlobal;
-        pk.isBabyMob = isBaby;
-
-        this.addChunkPacket(pos.getFloorX() >> 4, pos.getFloorZ() >> 4, pk);
+        this.addLevelSoundEvent(pos, type, data, AddEntityPacket.LEGACY_IDS.getOrDefault(identifier, -1), isBaby, isGlobal);
     }
 
     public void addParticle(Particle particle) {
