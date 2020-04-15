@@ -28,17 +28,17 @@ public class ResourcePackStackPacket extends DataPacket {
         for (ResourcePack entry : this.behaviourPackStack) {
             this.putString(entry.getPackId().toString());
             this.putString(entry.getPackVersion());
-            this.putString(""); //TODO: subpack name
+//            this.putString(""); //TODO: subpack name
         }
 
         this.putUnsignedVarInt(this.resourcePackStack.length);
         for (ResourcePack entry : this.resourcePackStack) {
             this.putString(entry.getPackId().toString());
             this.putString(entry.getPackVersion());
-            this.putString(""); //TODO: subpack name
+//            this.putString(""); //TODO: subpack name
         }
-        this.putBoolean(this.isExperimental);
-        this.putString(this.gameVersion);
+//        this.putBoolean(this.isExperimental);
+//        this.putString(this.gameVersion);
     }
 
     @Override
