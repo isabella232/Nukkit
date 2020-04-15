@@ -34,7 +34,7 @@ public class PlayerListPacket extends DataPacket {
             if (type == TYPE_ADD) {
                 this.putVarLong(entry.entityId);
                 this.putString(entry.name);
-                this.putString(entry.xboxUserId);  // TODO:???
+                this.putString(entry.thirdPartyName);  // TODO:???
                 this.putVarInt(entry.buildPlatform);
                 this.putSkin(entry.skin);
                 this.putString(entry.xboxUserId);
@@ -59,6 +59,7 @@ public class PlayerListPacket extends DataPacket {
         public final UUID uuid;
         public long entityId = 0;
         public String name = "";
+        public String thirdPartyName = "";
         public String xboxUserId = ""; //TODO
         public String platformChatId = ""; //TODO
         public int buildPlatform = -1;
