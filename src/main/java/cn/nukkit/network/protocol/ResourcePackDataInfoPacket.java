@@ -35,8 +35,8 @@ public class ResourcePackDataInfoPacket extends DataPacket {
         this.chunkCount = this.getLInt();
         this.compressedPackSize = this.getLLong();
         this.sha256 = this.getByteArray();
-        this.premium = this.getBoolean();
-        this.type = this.getByte();
+//        this.premium = this.getBoolean();
+//        this.type = this.getByte();
     }
 
     @Override
@@ -47,8 +47,8 @@ public class ResourcePackDataInfoPacket extends DataPacket {
         this.putLInt(this.chunkCount);
         this.putLLong(this.compressedPackSize);
         this.putByteArray(this.sha256);
-        this.putBoolean(this.premium);
-        this.putByte((byte) this.type);
+//        this.putBoolean(this.premium);
+//        this.putByte((byte) this.type);
     }
 
     @Override
