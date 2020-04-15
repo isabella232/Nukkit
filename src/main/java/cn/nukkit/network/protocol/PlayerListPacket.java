@@ -34,7 +34,7 @@ public class PlayerListPacket extends DataPacket {
             if (type == TYPE_ADD) {
                 this.putVarLong(entry.entityId);
                 this.putString(entry.name);
-                this.putString(entry.skin.getGeometryModel());  // TODO:???
+                this.putString(entry.xboxUserId);  // TODO:???
                 this.putVarInt(entry.buildPlatform);
                 this.putSkin(entry.skin);
                 this.putString(entry.xboxUserId);
