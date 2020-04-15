@@ -655,7 +655,7 @@ public class BinaryStream {
         putEntityUniqueId(link.fromEntityUniquieId);
         putEntityUniqueId(link.toEntityUniquieId);
         putByte(link.type);
-        putBoolean(link.immediate);
+//        putBoolean(link.immediate);
     }
 
     public EntityLink getEntityLink() {
