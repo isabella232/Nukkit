@@ -87,6 +87,8 @@ import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author MagicDroidX &amp; Box
@@ -2164,19 +2166,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         valid = false;
                     }
 
-                    for (int i = 0; i < len && valid; i++) {
-                        char c = loginPacket.username.charAt(i);
-                        if ((c >= 'a' && c <= 'z') ||
-                                (c >= 'A' && c <= 'Z') ||
-                                (c >= '0' && c <= '9') ||
-                                c == '_' || c == ' '
-                                ) {
-                            continue;
-                        }
-
-                        valid = false;
-                        break;
-                    }
+                    if (valid)
+                        valid = loginPacket.username.matches("[ _\\w\\u4E00-\\u9FBF]+");
 
                     if (!valid || Objects.equals(this.iusername, "rcon") || Objects.equals(this.iusername, "console")) {
                         this.close("", "disconnectionScreen.invalidName");
