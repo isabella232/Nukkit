@@ -14,7 +14,7 @@ public interface ProtocolInfo {
      * Actual Minecraft: PE protocol version
      */
     @SuppressWarnings("UnnecessaryBoxing")
-    int CURRENT_PROTOCOL = Integer.valueOf("389"); // DO NOT REMOVE BOXING
+    int CURRENT_PROTOCOL = Integer.valueOf("274"); // DO NOT REMOVE BOXING
 
     List<Integer> SUPPORTED_PROTOCOLS = Ints.asList(CURRENT_PROTOCOL);
 
