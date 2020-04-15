@@ -70,7 +70,8 @@ public class CraftingDataPacket extends DataPacket {
             switch (recipe.getType()) {
                 case SHAPELESS:
                     ShapelessRecipe shapeless = (ShapelessRecipe) recipe;
-                    this.putString(shapeless.getRecipeId());
+                    this.putVarInt(0);
+//                    this.putString(shapeless.getRecipeId());
                     List<Item> ingredients = shapeless.getIngredientList();
                     this.putUnsignedVarInt(ingredients.size());
                     for (Item ingredient : ingredients) {
@@ -79,12 +80,13 @@ public class CraftingDataPacket extends DataPacket {
                     this.putUnsignedVarInt(1);
                     this.putSlot(shapeless.getResult());
                     this.putUUID(shapeless.getId());
-                    this.putString(CRAFTING_TAG_CRAFTING_TABLE);
-                    this.putVarInt(shapeless.getPriority());
+//                    this.putString(CRAFTING_TAG_CRAFTING_TABLE);
+//                    this.putVarInt(shapeless.getPriority());
                     break;
                 case SHAPED:
                     ShapedRecipe shaped = (ShapedRecipe) recipe;
-                    this.putString(shaped.getRecipeId());
+                    this.putVarInt(1);
+//                    this.putString(shaped.getRecipeId());
                     this.putVarInt(shaped.getWidth());
                     this.putVarInt(shaped.getHeight());
 
@@ -101,19 +103,20 @@ public class CraftingDataPacket extends DataPacket {
                         this.putSlot(output);
                     }
                     this.putUUID(shaped.getId());
-                    this.putString(CRAFTING_TAG_CRAFTING_TABLE);
-                    this.putVarInt(shaped.getPriority());
+//                    this.putString(CRAFTING_TAG_CRAFTING_TABLE);
+//                    this.putVarInt(shaped.getPriority());
                     break;
                 case FURNACE:
                 case FURNACE_DATA:
                     FurnaceRecipe furnace = (FurnaceRecipe) recipe;
                     Item input = furnace.getInput();
+                    this.putVarInt(2);
                     this.putVarInt(input.getId());
                     if (recipe.getType() == RecipeType.FURNACE_DATA) {
                         this.putVarInt(input.getDamage());
                     }
                     this.putSlot(furnace.getResult());
-                    this.putString(CRAFTING_TAG_FURNACE);
+//                    this.putString(CRAFTING_TAG_FURNACE);
                     break;
             }
         }
