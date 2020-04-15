@@ -22,7 +22,7 @@ public class ResourcePacksInfoPacket extends DataPacket {
     public void encode() {
         this.reset();
         this.putBoolean(this.mustAccept);
-        this.putBoolean(this.unknownBool);
+//        this.putBoolean(this.unknownBool);
 
         encodePacks(this.resourcePackEntries);
         encodePacks(this.behaviourPackEntries);
@@ -36,8 +36,8 @@ public class ResourcePacksInfoPacket extends DataPacket {
             this.putLLong(entry.getPackSize());
             this.putString(""); // encryption key
             this.putString(""); // sub-pack name
-            this.putString(""); // content identity
-            this.putBoolean(false); // ???
+//            this.putString(""); // content identity
+//            this.putBoolean(false); // ???
         }
     }
 
