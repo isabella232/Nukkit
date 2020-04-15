@@ -158,6 +158,8 @@ modules.xml
 .idea/sonarlint
 
 ### Java ###
+# Language repository
+src/main/resources/lang
 # Compiled class file
 *.class
 
