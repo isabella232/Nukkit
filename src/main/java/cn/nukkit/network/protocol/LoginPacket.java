@@ -138,7 +138,7 @@ public class LoginPacket extends DataPacket {
     }
 
     private static SerializedImage getImage(JsonObject token, String name) {
-        if (token.has(name + "Data")) {
+        if (token.has(name + "Data") && !token.get(name + "Data").getAsString().isEmpty()) {
             byte[] skinImage = Base64.getDecoder().decode(token.get(name + "Data").getAsString());
             if (token.has(name + "ImageHeight") && token.has(name + "ImageWidth")) {
                 int width = token.get(name + "ImageWidth").getAsInt();
