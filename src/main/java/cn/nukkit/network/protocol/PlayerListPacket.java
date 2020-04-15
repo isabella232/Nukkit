@@ -34,12 +34,15 @@ public class PlayerListPacket extends DataPacket {
             if (type == TYPE_ADD) {
                 this.putVarLong(entry.entityId);
                 this.putString(entry.name);
+                this.putString("");  // TODO:???
+                this.putVarInt(entry.buildPlatform);
+                this.putSkin(entry.skin);
                 this.putString(entry.xboxUserId);
                 this.putString(entry.platformChatId);
-                this.putLInt(entry.buildPlatform);
-                this.putSkin(entry.skin);
-                this.putBoolean(entry.isTeacher);
-                this.putBoolean(entry.isHost);
+//                this.putLInt(entry.buildPlatform);
+//                this.putSkin(entry.skin);
+//                this.putBoolean(entry.isTeacher);
+//                this.putBoolean(entry.isHost);
             }
         }
 

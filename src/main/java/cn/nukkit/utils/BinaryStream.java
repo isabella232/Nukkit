@@ -258,9 +258,10 @@ public class BinaryStream {
 
     public void putSkin(Skin skin) {
         this.putString(skin.getSkinId());
-        this.putString(skin.getSkinResourcePatch());
+//        this.putString(skin.getSkinResourcePatch());
         this.putImage(skin.getSkinData());
 
+/*
         List<SkinAnimation> animations = skin.getAnimations();
         this.putLInt(animations.size());
         for (SkinAnimation animation : animations) {
@@ -268,23 +269,28 @@ public class BinaryStream {
             this.putLInt(animation.type);
             this.putLFloat(animation.frames);
         }
+*/
 
         this.putImage(skin.getCapeData());
+        this.putString(skin.getCapeId()); // TODO:???
         this.putString(skin.getGeometryData());
+/*
         this.putString(skin.getAnimationData());
         this.putBoolean(skin.isPremium());
         this.putBoolean(skin.isPersona());
         this.putBoolean(skin.isCapeOnClassic());
         this.putString(skin.getCapeId());
         this.putString(skin.getFullSkinId());
+*/
     }
 
     public Skin getSkin() {
         Skin skin = new Skin();
         skin.setSkinId(this.getString());
-        skin.setSkinResourcePatch(this.getString());
+//        skin.setSkinResourcePatch(this.getString());
         skin.setSkinData(this.getImage());
 
+/*
         int animationCount = this.getLInt();
         for (int i = 0; i < animationCount; i++) {
             SerializedImage image = this.getImage();
@@ -292,15 +298,19 @@ public class BinaryStream {
             float frames = this.getLFloat();
             skin.getAnimations().add(new SkinAnimation(image, type, frames));
         }
+*/
 
         skin.setCapeData(this.getImage());
+        skin.setCapeId(this.getString()); // TODO:???
         skin.setGeometryData(this.getString());
+/*
         skin.setAnimationData(this.getString());
         skin.setPremium(this.getBoolean());
         skin.setPersona(this.getBoolean());
         skin.setCapeOnClassic(this.getBoolean());
         skin.setCapeId(this.getString());
         this.getString(); // TODO: Full skin id
+*/
         return skin;
     }
 
