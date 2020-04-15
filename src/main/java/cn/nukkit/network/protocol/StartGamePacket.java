@@ -93,6 +93,7 @@ public class StartGamePacket extends DataPacket {
     public GameRules gameRules;
     public boolean bonusChest = false;
     public boolean hasStartWithMapEnabled = false;
+    public boolean trustPlayers = false;
     public int permissionLevel = 1;
     public int serverChunkTickRange = 4;
     public boolean hasLockedBehaviorPack = false;
@@ -137,41 +138,46 @@ public class StartGamePacket extends DataPacket {
         this.putBlockVector3(this.spawnX, this.spawnY, this.spawnZ);
         this.putBoolean(this.hasAchievementsDisabled);
         this.putVarInt(this.dayCycleStopTime);
-        this.putVarInt(this.eduEditionOffer);
+        this.putBoolean(this.eduEditionOffer == 1);
         this.putBoolean(this.hasEduFeaturesEnabled);
         this.putLFloat(this.rainLevel);
         this.putLFloat(this.lightningLevel);
         this.putBoolean(this.hasConfirmedPlatformLockedContent);
         this.putBoolean(this.multiplayerGame);
         this.putBoolean(this.broadcastToLAN);
-        this.putVarInt(this.xblBroadcastIntent);
-        this.putVarInt(this.platformBroadcastIntent);
+//        this.putVarInt(this.xblBroadcastIntent);
+        this.putBoolean(this.xblBroadcastIntent != GAME_PUBLISH_SETTING_NO_MULTI_PLAY || this.platformBroadcastIntent != GAME_PUBLISH_SETTING_NO_MULTI_PLAY);
         this.putBoolean(this.commandsEnabled);
         this.putBoolean(this.isTexturePacksRequired);
         this.putGameRules(this.gameRules);
         this.putBoolean(this.bonusChest);
         this.putBoolean(this.hasStartWithMapEnabled);
+        this.putBoolean(this.trustPlayers);
         this.putVarInt(this.permissionLevel);
+        this.putVarInt(this.xblBroadcastIntent);
         this.putLInt(this.serverChunkTickRange);
+        this.putBoolean(this.platformBroadcastIntent != GAME_PUBLISH_SETTING_NO_MULTI_PLAY);
+        this.putVarInt(this.platformBroadcastIntent);
+        this.putBoolean(this.xblBroadcastIntent != GAME_PUBLISH_SETTING_NO_MULTI_PLAY);
         this.putBoolean(this.hasLockedBehaviorPack);
         this.putBoolean(this.hasLockedResourcePack);
         this.putBoolean(this.isFromLockedWorldTemplate);
-        this.putBoolean(this.isUsingMsaGamertagsOnly);
-        this.putBoolean(this.isFromWorldTemplate);
-        this.putBoolean(this.isWorldTemplateOptionLocked);
-        this.putBoolean(this.isOnlySpawningV1Villagers);
-        this.putString(this.vanillaVersion);
+//        this.putBoolean(this.isUsingMsaGamertagsOnly);
+//        this.putBoolean(this.isFromWorldTemplate);
+//        this.putBoolean(this.isWorldTemplateOptionLocked);
+//        this.putBoolean(this.isOnlySpawningV1Villagers);
+//        this.putString(this.vanillaVersion);
 
         this.putString(this.levelId);
         this.putString(this.worldName);
         this.putString(this.premiumWorldTemplateId);
         this.putBoolean(this.isTrial);
-        this.putBoolean(this.isMovementServerAuthoritative);
+//        this.putBoolean(this.isMovementServerAuthoritative);
         this.putLLong(this.currentTick);
         this.putVarInt(this.enchantmentSeed);
-        this.put(GlobalBlockPalette.BLOCK_PALETTE);
-        this.put(ITEM_DATA_PALETTE);
-        this.putString(this.multiplayerCorrelationId);
+//        this.put(GlobalBlockPalette.BLOCK_PALETTE);
+//        this.put(ITEM_DATA_PALETTE);
+//        this.putString(this.multiplayerCorrelationId);
     }
 
     private static class ItemData {
