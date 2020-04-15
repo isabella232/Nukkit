@@ -272,7 +272,7 @@ public class BinaryStream {
 */
 
         this.putImage(skin.getCapeData());
-        this.putString(skin.getCapeId()); // TODO:???
+        this.putString(skin.getGeometryModel());
         this.putString(skin.getGeometryData());
 /*
         this.putString(skin.getAnimationData());
@@ -285,8 +285,12 @@ public class BinaryStream {
     }
 
     public Skin getSkin() {
+        return getSkin(this.getString());
+    }
+
+    public Skin getSkin(String skinId) {
         Skin skin = new Skin();
-        skin.setSkinId(this.getString());
+        skin.setSkinId(skinId);
 //        skin.setSkinResourcePatch(this.getString());
         skin.setSkinData(this.getImage());
 
@@ -301,7 +305,7 @@ public class BinaryStream {
 */
 
         skin.setCapeData(this.getImage());
-        skin.setCapeId(this.getString()); // TODO:???
+        skin.setGeometryModel(this.getString());
         skin.setGeometryData(this.getString());
 /*
         skin.setAnimationData(this.getString());

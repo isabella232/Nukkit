@@ -39,6 +39,7 @@ public class Skin {
     private SerializedImage skinData;
     private final List<SkinAnimation> animations = new ArrayList<>();
     private SerializedImage capeData;
+    private String geometryModel;
     private String geometryData;
     private String animationData;
     private boolean premium;
@@ -165,6 +166,20 @@ public class Skin {
     public void setCapeData(SerializedImage capeData) {
         Objects.requireNonNull(capeData, "capeData");
         this.capeData = capeData;
+    }
+
+    public String getGeometryModel() {
+        if (geometryModel == null) {
+            return "";
+        }
+        return geometryModel;
+    }
+
+    public void setGeometryModel(String geometryModel) {
+        Preconditions.checkNotNull(geometryModel, "geometryModel");
+        if (!geometryModel.equals(this.geometryModel)) {
+            this.geometryModel = geometryModel;
+        }
     }
 
     public String getGeometryData() {

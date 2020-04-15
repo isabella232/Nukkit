@@ -21,17 +21,24 @@ public class PlayerSkinPacket extends DataPacket {
     @Override
     public void decode() {
         uuid = getUUID();
-        skin = getSkin();
+        String skinId = this.getString();
         newSkinName = getString();
         oldSkinName = getString();
+        skin = getSkin(skinId);
+//        newSkinName = getString();
+//        oldSkinName = getString();
     }
 
     @Override
     public void encode() {
         reset();
         putUUID(uuid);
-        putSkin(skin);
+        this.putString("Standard_Alex"); // TODO: fixme "Standard_Steve" "Standard_Alex"
         putString(newSkinName);
         putString(oldSkinName);
+        this.putImage(this.skin.getSkinData());
+        this.putImage(this.skin.getCapeData());
+        this.putString(this.skin.getGeometryModel());
+        this.putString(this.skin.getGeometryData());
     }
 }
