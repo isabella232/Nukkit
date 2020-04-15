@@ -49,6 +49,8 @@ public class AddPlayerPacket extends DataPacket {
         this.reset();
         this.putUUID(this.uuid);
         this.putString(this.username);
+        this.putString(deviceId);
+        this.putLInt(buildPlatform);
         this.putEntityUniqueId(this.entityUniqueId);
         this.putEntityRuntimeId(this.entityRuntimeId);
         this.putString(this.platformChatId);
@@ -59,14 +61,12 @@ public class AddPlayerPacket extends DataPacket {
         this.putLFloat(this.yaw);
         this.putSlot(this.item);
         this.put(Binary.writeMetadata(this.metadata));
-        this.putUnsignedVarInt(0); //TODO: Adventure settings
-        this.putUnsignedVarInt(0);
-        this.putUnsignedVarInt(0);
-        this.putUnsignedVarInt(0);
-        this.putUnsignedVarInt(0);
-        this.putLLong(entityUniqueId);
-        this.putUnsignedVarInt(0); //TODO: Entity links
-        this.putString(deviceId);
-        this.putLInt(buildPlatform);
+//        this.putUnsignedVarInt(0); //TODO: Adventure settings
+//        this.putUnsignedVarInt(0);
+//        this.putUnsignedVarInt(0);
+//        this.putUnsignedVarInt(0);
+//        this.putUnsignedVarInt(0);
+//        this.putLLong(entityUniqueId);
+//        this.putUnsignedVarInt(0); //TODO: Entity links
     }
 }
