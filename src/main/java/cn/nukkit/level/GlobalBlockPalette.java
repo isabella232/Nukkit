@@ -4,12 +4,18 @@ import cn.nukkit.Server;
 import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.ListTag;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.lang.reflect.Type;
 import java.nio.ByteOrder;
+import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -17,16 +23,24 @@ public class GlobalBlockPalette {
     private static final Int2IntMap legacyToRuntimeId = new Int2IntOpenHashMap();
     private static final Int2IntMap runtimeIdToLegacy = new Int2IntOpenHashMap();
     private static final AtomicInteger runtimeIdAllocator = new AtomicInteger(0);
-    public static final byte[] BLOCK_PALETTE;
+    public static final byte[] BLOCK_PALETTE = new byte[0];
 
     static {
         legacyToRuntimeId.defaultReturnValue(-1);
         runtimeIdToLegacy.defaultReturnValue(-1);
 
-        InputStream stream = Server.class.getClassLoader().getResourceAsStream("runtime_block_states.dat");
+        InputStream stream = Server.class.getClassLoader().getResourceAsStream("runtime_item_ids.json");
         if (stream == null) {
             throw new AssertionError("Unable to locate block state nbt");
         }
+        Gson gson = new Gson();
+        Reader reader = new InputStreamReader(stream);
+        Type collectionType = new TypeToken<Collection<TableEntry>>(){}.getType();
+        Collection<TableEntry> entries = gson.fromJson(reader, collectionType);
+        for (TableEntry entry : entries) {
+            registerMapping(entry.runtimeID, (entry.id << 4) | entry.data);
+        }
+/*
         ListTag<CompoundTag> tag;
         try {
             //noinspection unchecked
@@ -56,6 +70,14 @@ public class GlobalBlockPalette {
         } catch (IOException e) {
             throw new AssertionError("Unable to write block palette", e);
         }
+*/
+    }
+
+    private static int registerMapping(int runtimeId, int legacyId) {
+        runtimeIdToLegacy.put(runtimeId, legacyId);
+        legacyToRuntimeId.put(legacyId, runtimeId);
+        runtimeIdAllocator.set(Math.max(runtimeIdAllocator.get(), runtimeId));
+        return runtimeId;
     }
 
     public static int getOrCreateRuntimeId(int id, int meta) {
@@ -70,5 +92,12 @@ public class GlobalBlockPalette {
 
     public static int getOrCreateRuntimeId(int legacyId) throws NoSuchElementException {
         return getOrCreateRuntimeId(legacyId >> 4, legacyId & 0xf);
+    }
+
+    private static class TableEntry {
+        private int id;
+        private int data;
+        private int runtimeID;
+        private String name;
     }
 }
