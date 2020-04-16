@@ -122,7 +122,7 @@ public class CraftingDataPacket extends DataPacket {
                     this.putSlot(furnace.getResult());
 //                    this.putString(CRAFTING_TAG_FURNACE);
                     break;
-                case SHULKER_BOX:
+                case MULTI:
                     EnchantmentList enchantmentList = (EnchantmentList) recipe;
                     this.putByte((byte) enchantmentList.getSize());
                     for (int i = 0; i < enchantmentList.getSize(); i++) {
