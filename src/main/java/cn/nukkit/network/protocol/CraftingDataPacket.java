@@ -52,6 +52,10 @@ public class CraftingDataPacket extends DataPacket {
         Collections.addAll(containerEntries, recipe);
     }
 
+    public void addEnchantList(EnchantmentList... recipe) {
+        Collections.addAll(entries, recipe);
+    }
+
     @Override
     public DataPacket clean() {
         entries = new ArrayList<>();
@@ -69,8 +73,7 @@ public class CraftingDataPacket extends DataPacket {
         this.putUnsignedVarInt(entries.size());
 
         for (Recipe recipe : entries) {
-            if (recipe.getType().ordinal() >= 0)
-                this.putVarInt(recipe.getType().ordinal());
+            this.putVarInt(recipe.getType().ordinal());
             switch (recipe.getType()) {
                 case SHAPELESS:
                     ShapelessRecipe shapeless = (ShapelessRecipe) recipe;
@@ -119,7 +122,7 @@ public class CraftingDataPacket extends DataPacket {
                     this.putSlot(furnace.getResult());
 //                    this.putString(CRAFTING_TAG_FURNACE);
                     break;
-                case MULTI:
+                case SHULKER_BOX:
                     EnchantmentList enchantmentList = (EnchantmentList) recipe;
                     this.putByte((byte) enchantmentList.getSize());
                     for (int i = 0; i < enchantmentList.getSize(); i++) {
