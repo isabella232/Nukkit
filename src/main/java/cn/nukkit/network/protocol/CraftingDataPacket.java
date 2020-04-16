@@ -69,16 +69,16 @@ public class CraftingDataPacket extends DataPacket {
         this.putUnsignedVarInt(entries.size());
 
         for (Recipe recipe : entries) {
-            this.putVarInt(recipe.getType().ordinal());
+            if (recipe.getType().ordinal() >= 0)
+                this.putVarInt(recipe.getType().ordinal());
             switch (recipe.getType()) {
                 case SHAPELESS:
                     ShapelessRecipe shapeless = (ShapelessRecipe) recipe;
-                    this.putVarInt(recipe.getType().ordinal());
 //                    this.putString(shapeless.getRecipeId());
                     List<Item> ingredients = shapeless.getIngredientList();
                     this.putUnsignedVarInt(ingredients.size());
                     for (Item ingredient : ingredients) {
-                        this.putRecipeIngredient(ingredient);
+                        this.putSlot(ingredient);
                     }
                     this.putUnsignedVarInt(1);
                     this.putSlot(shapeless.getResult());
@@ -88,14 +88,13 @@ public class CraftingDataPacket extends DataPacket {
                     break;
                 case SHAPED:
                     ShapedRecipe shaped = (ShapedRecipe) recipe;
-                    this.putVarInt(recipe.getType().ordinal());
 //                    this.putString(shaped.getRecipeId());
                     this.putVarInt(shaped.getWidth());
                     this.putVarInt(shaped.getHeight());
 
                     for (int z = 0; z < shaped.getHeight(); ++z) {
                         for (int x = 0; x < shaped.getWidth(); ++x) {
-                            this.putRecipeIngredient(shaped.getIngredient(x, z));
+                            this.putSlot(shaped.getIngredient(x, z));
                         }
                     }
                     List<Item> outputs = new ArrayList<>();
@@ -113,7 +112,6 @@ public class CraftingDataPacket extends DataPacket {
                 case FURNACE_DATA:
                     FurnaceRecipe furnace = (FurnaceRecipe) recipe;
                     Item input = furnace.getInput();
-                    this.putVarInt(recipe.getType().ordinal());
                     this.putVarInt(input.getId());
                     if (recipe.getType() == RecipeType.FURNACE_DATA) {
                         this.putVarInt(input.getDamage());
@@ -123,7 +121,6 @@ public class CraftingDataPacket extends DataPacket {
                     break;
                 case MULTI:
                     EnchantmentList enchantmentList = (EnchantmentList) recipe;
-                    this.putVarInt(recipe.getType().ordinal());
                     this.putByte((byte) enchantmentList.getSize());
                     for (int i = 0; i < enchantmentList.getSize(); i++) {
                         EnchantmentEntry slot = enchantmentList.getSlot(i);
@@ -138,8 +135,6 @@ public class CraftingDataPacket extends DataPacket {
 //                    this.putString(???);
                     break;
                 default:
-                    if (recipe.getType().ordinal() >= 0)
-                        this.putVarInt(recipe.getType().ordinal());
                     this.putVarInt(-1);
                     break;
             }
