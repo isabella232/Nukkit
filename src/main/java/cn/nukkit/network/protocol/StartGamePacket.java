@@ -5,6 +5,7 @@ import cn.nukkit.level.GameRules;
 import cn.nukkit.level.GlobalBlockPalette;
 import cn.nukkit.utils.BinaryStream;
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
@@ -15,6 +16,9 @@ import java.io.Reader;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 /**
  * Created on 15-10-13.
@@ -43,7 +47,7 @@ public class StartGamePacket extends DataPacket {
         Gson gson = new Gson();
         Type collectionType = new TypeToken<Collection<ItemData>>() {
         }.getType();
-        Collection<ItemData> entries = gson.fromJson(reader, collectionType);
+        Collection<ItemData> entries = new TreeSet<>((Collection<ItemData>) gson.fromJson(reader, collectionType));
         BinaryStream paletteBuffer = new BinaryStream();
 
         paletteBuffer.putUnsignedVarInt(entries.size());
@@ -180,8 +184,14 @@ public class StartGamePacket extends DataPacket {
 //        this.putString(this.multiplayerCorrelationId);
     }
 
-    private static class ItemData {
+    private static class ItemData implements Comparable<ItemData> {
         private String name;
+//        @SerializedName("runtimeID")
         private int id;
+
+        @Override
+        public int compareTo(ItemData o) {
+            return Integer.compare(this.id, o.id);
+        }
     }
 }
