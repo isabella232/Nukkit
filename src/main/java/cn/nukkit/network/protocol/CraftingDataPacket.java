@@ -70,7 +70,7 @@ public class CraftingDataPacket extends DataPacket {
             switch (recipe.getType()) {
                 case SHAPELESS:
                     ShapelessRecipe shapeless = (ShapelessRecipe) recipe;
-                    this.putVarInt(0);
+                    this.putVarInt(recipe.getType().ordinal());
 //                    this.putString(shapeless.getRecipeId());
                     List<Item> ingredients = shapeless.getIngredientList();
                     this.putUnsignedVarInt(ingredients.size());
@@ -85,7 +85,7 @@ public class CraftingDataPacket extends DataPacket {
                     break;
                 case SHAPED:
                     ShapedRecipe shaped = (ShapedRecipe) recipe;
-                    this.putVarInt(1);
+                    this.putVarInt(recipe.getType().ordinal());
 //                    this.putString(shaped.getRecipeId());
                     this.putVarInt(shaped.getWidth());
                     this.putVarInt(shaped.getHeight());
@@ -110,7 +110,7 @@ public class CraftingDataPacket extends DataPacket {
                 case FURNACE_DATA:
                     FurnaceRecipe furnace = (FurnaceRecipe) recipe;
                     Item input = furnace.getInput();
-                    this.putVarInt(2);
+                    this.putVarInt(recipe.getType().ordinal());
                     this.putVarInt(input.getId());
                     if (recipe.getType() == RecipeType.FURNACE_DATA) {
                         this.putVarInt(input.getDamage());
