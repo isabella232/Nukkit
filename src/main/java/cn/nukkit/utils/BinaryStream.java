@@ -452,9 +452,12 @@ public class BinaryStream {
                     tag.putInt("Damage", item.getDamage());
                 }
 
-                this.putLShort(0xffff);
-                this.putByte((byte) 1);
-                this.put(NBTIO.write(tag, ByteOrder.LITTLE_ENDIAN, true));
+//                this.putLShort(0xffff);
+//                this.putByte((byte) 1);
+                byte[] nbtNew = NBTIO.write(tag, ByteOrder.LITTLE_ENDIAN, false);
+                if (nbtNew != null)
+                    this.putLShort(nbtNew.length);
+                this.put(nbtNew);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
