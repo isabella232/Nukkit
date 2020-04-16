@@ -430,12 +430,12 @@ public class BinaryStream {
         this.putVarInt(item.getId());
 
         int auxValue = item.getCount();
-        if (!isDurable) {
+//        if (!isDurable) {
             auxValue |= (((item.hasMeta() ? item.getDamage() : -1) & 0x7fff) << 8);
-        }
+//        }
         this.putVarInt(auxValue);
-
-        if (item.hasCompoundTag() || isDurable) {
+        // isDurable to control armors collected or not
+        if (item.hasCompoundTag()/* || isDurable*/) {
             try {
                 // hack for tool damage
                 byte[] nbt = item.getCompoundTag();
