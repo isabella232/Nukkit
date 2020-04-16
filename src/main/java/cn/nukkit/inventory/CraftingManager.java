@@ -80,11 +80,13 @@ public class CraftingManager {
             try {
                 switch (Utils.toInt(recipe.get("type"))) {
                     case 0:
+/*
                         String craftingBlock = (String) recipe.get("block");
                         if (!"crafting_table".equals(craftingBlock)) {
                             // Ignore other recipes than crafting table ones
                             continue;
                         }
+*/
                         // TODO: handle multiple result items
                         List<Map> outputs = ((List<Map>) recipe.get("output"));
                         if (outputs.size() > 1) {
@@ -99,18 +101,20 @@ public class CraftingManager {
                         sorted.sort(recipeComparator);
 
                         String recipeId = (String) recipe.get("id");
-                        int priority = Utils.toInt(recipe.get("priority"));
+                        int priority = recipe.containsKey("priority") ? Utils.toInt(recipe.get("priority")) : 50;
 
                         ShapelessRecipe result = new ShapelessRecipe(recipeId, priority, Item.fromJson(first), sorted);
 
                         this.registerRecipe(result);
                         break;
                     case 1:
+/*
                         craftingBlock = (String) recipe.get("block");
                         if (!"crafting_table".equals(craftingBlock)) {
                             // Ignore other recipes than crafting table ones
                             continue;
                         }
+*/
                         outputs = (List<Map>) recipe.get("output");
 
                         first = outputs.remove(0);
@@ -131,17 +135,19 @@ public class CraftingManager {
                         }
 
                         recipeId = (String) recipe.get("id");
-                        priority = Utils.toInt(recipe.get("priority"));
+                        priority = recipe.containsKey("priority") ? Utils.toInt(recipe.get("priority")) : 50;
 
                         this.registerRecipe(new ShapedRecipe(recipeId, priority, Item.fromJson(first), shape, ingredients, extraResults));
                         break;
                     case 2:
                     case 3:
+/*
                         craftingBlock = (String) recipe.get("block");
                         if (!"furnace".equals(craftingBlock)) {
                             // Ignore other recipes than furnaces
                             continue;
                         }
+*/
                         Map<String, Object> resultMap = (Map) recipe.get("output");
                         Item resultItem = Item.fromJson(resultMap);
                         Item inputItem;

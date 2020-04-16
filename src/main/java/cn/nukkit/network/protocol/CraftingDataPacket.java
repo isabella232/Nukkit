@@ -2,6 +2,9 @@ package cn.nukkit.network.protocol;
 
 import cn.nukkit.inventory.*;
 import cn.nukkit.item.Item;
+import cn.nukkit.item.enchantment.Enchantment;
+import cn.nukkit.item.enchantment.EnchantmentEntry;
+import cn.nukkit.item.enchantment.EnchantmentList;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -97,7 +100,7 @@ public class CraftingDataPacket extends DataPacket {
                     }
                     List<Item> outputs = new ArrayList<>();
                     outputs.add(shaped.getResult());
-                    outputs.addAll(shaped.getExtraResults());
+//                    outputs.addAll(shaped.getExtraResults());
                     this.putUnsignedVarInt(outputs.size());
                     for (Item output : outputs) {
                         this.putSlot(output);
@@ -117,6 +120,25 @@ public class CraftingDataPacket extends DataPacket {
                     }
                     this.putSlot(furnace.getResult());
 //                    this.putString(CRAFTING_TAG_FURNACE);
+                    break;
+                case MULTI:
+                    EnchantmentList enchantmentList = (EnchantmentList) recipe;
+                    this.putVarInt(recipe.getType().ordinal());
+                    this.putByte((byte) enchantmentList.getSize());
+                    for (int i = 0; i < enchantmentList.getSize(); i++) {
+                        EnchantmentEntry slot = enchantmentList.getSlot(i);
+                        this.putUnsignedVarInt(slot.getCost());
+                        this.putUnsignedVarInt(slot.getEnchantments().length);
+                        for (Enchantment enchantment : slot.getEnchantments()) {
+                            this.putUnsignedVarInt(enchantment.getId());
+                            this.putUnsignedVarInt(enchantment.getLevel());
+                        }
+                        this.putString(slot.getRandomName());
+                    }
+//                    this.putString(???);
+                    break;
+                default:
+                    this.putVarInt(-1);
                     break;
             }
         }
