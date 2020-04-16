@@ -146,7 +146,7 @@ public class StartGamePacket extends DataPacket {
         this.putBoolean(this.hasEduFeaturesEnabled);
         this.putLFloat(this.rainLevel);
         this.putLFloat(this.lightningLevel);
-        this.putBoolean(this.hasConfirmedPlatformLockedContent);
+//        this.putBoolean(this.hasConfirmedPlatformLockedContent);
         this.putBoolean(this.multiplayerGame);
         this.putBoolean(this.broadcastToLAN);
 //        this.putVarInt(this.xblBroadcastIntent);
