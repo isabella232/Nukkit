@@ -138,6 +138,8 @@ public class CraftingDataPacket extends DataPacket {
 //                    this.putString(???);
                     break;
                 default:
+                    if (recipe.getType().ordinal() >= 0)
+                        this.putVarInt(recipe.getType().ordinal());
                     this.putVarInt(-1);
                     break;
             }
