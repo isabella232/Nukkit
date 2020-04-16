@@ -38,7 +38,7 @@ public class GlobalBlockPalette {
         Type collectionType = new TypeToken<Collection<TableEntry>>(){}.getType();
         Collection<TableEntry> entries = gson.fromJson(reader, collectionType);
         for (TableEntry entry : entries) {
-            registerMapping(entry.runtimeID, (entry.id << 4) | entry.data);
+            registerMapping(entry.runtimeID, (entry.id << 6) | entry.data);
         }
 /*
         ListTag<CompoundTag> tag;
