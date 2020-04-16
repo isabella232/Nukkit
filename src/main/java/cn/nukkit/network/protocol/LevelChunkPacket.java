@@ -32,15 +32,15 @@ public class LevelChunkPacket extends DataPacket {
         this.reset();
         this.putVarInt(this.chunkX);
         this.putVarInt(this.chunkZ);
-        this.putUnsignedVarInt(this.subChunkCount);
-        this.putBoolean(cacheEnabled);
-        if (this.cacheEnabled) {
-            this.putUnsignedVarInt(blobIds.length);
-
-            for (long blobId : blobIds) {
-                this.putLLong(blobId);
-            }
-        }
+//        this.putUnsignedVarInt(this.subChunkCount);
+//        this.putBoolean(cacheEnabled);
+//        if (this.cacheEnabled) {
+//            this.putUnsignedVarInt(blobIds.length);
+//
+//            for (long blobId : blobIds) {
+//                this.putLLong(blobId);
+//            }
+//        }
         this.putByteArray(this.data);
     }
 }
