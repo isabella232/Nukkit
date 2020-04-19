@@ -50,7 +50,7 @@ public class AddPlayerPacket extends DataPacket {
         this.putUUID(this.uuid);
         this.putString(this.username);
         this.putString(deviceId);
-        this.putLInt(buildPlatform);
+        this.putVarInt(buildPlatform);
         this.putEntityUniqueId(this.entityUniqueId);
         this.putEntityRuntimeId(this.entityRuntimeId);
         this.putString(this.platformChatId);
