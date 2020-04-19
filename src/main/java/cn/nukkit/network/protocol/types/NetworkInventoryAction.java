@@ -238,6 +238,7 @@ public class NetworkInventoryAction {
                         case SOURCE_TYPE_ENCHANT_MATERIAL:
                             if (this.inventorySlot != 1) {
                                 // Material should only be in slot 1.
+                                // but the slot always 0 in 1.5 ???
                                 return null;
                             }
                             break;
