@@ -272,8 +272,8 @@ public class BinaryStream {
 */
 
         this.putImage(skin.getCapeData());
-        this.putString(skin.getGeometryModel());
-        this.putString(skin.getGeometryData());
+//        this.putString(skin.getGeometryModel());
+//        this.putString(skin.getGeometryData());
 /*
         this.putString(skin.getAnimationData());
         this.putBoolean(skin.isPremium());
@@ -319,14 +319,16 @@ public class BinaryStream {
     }
 
     public void putImage(SerializedImage image) {
-        this.putLInt(image.width);
-        this.putLInt(image.height);
+//        this.putLInt(image.width);
+//        this.putLInt(image.height);
         this.putByteArray(image.data);
     }
 
     public SerializedImage getImage() {
-        int width = this.getLInt();
-        int height = this.getLInt();
+//        int width = this.getLInt();
+//        int height = this.getLInt();
+        int width = 64;
+        int height = 64;
         byte[] data = this.getByteArray();
         return new SerializedImage(width, height, data);
     }
