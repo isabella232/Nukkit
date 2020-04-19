@@ -2161,7 +2161,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     this.rawUUID = Binary.writeUUID(this.uuid);
 
                     boolean valid = true;
-                    int len = loginPacket.username.length();
+                    int len = loginPacket.username.getBytes().length;
                     if (len > 16 || len < 3) {
                         valid = false;
                     }
