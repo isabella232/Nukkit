@@ -437,10 +437,15 @@ public class BinaryStream {
 //        }
         this.putVarInt(auxValue);
         // isDurable to control armors collected or not
-        if (item.hasCompoundTag()/* || isDurable*/) {
+        if (item.hasCompoundTag() || isDurable) {
+/*
             try {
+*/
                 // hack for tool damage
                 byte[] nbt = item.getCompoundTag();
+                this.putLShort(nbt == null ? 0 : nbt.length);
+                this.put(nbt);
+/*
                 CompoundTag tag;
                 if (nbt == null || nbt.length == 0) {
                     tag = new CompoundTag();
@@ -454,15 +459,13 @@ public class BinaryStream {
                     tag.putInt("Damage", item.getDamage());
                 }
 
-//                this.putLShort(0xffff);
-//                this.putByte((byte) 1);
-                byte[] nbtNew = NBTIO.write(tag, ByteOrder.LITTLE_ENDIAN, false);
-                if (nbtNew != null)
-                    this.putLShort(nbtNew.length);
-                this.put(nbtNew);
+                this.putLShort(0xffff);
+                this.putByte((byte) 1);
+                this.put(NBTIO.write(tag, ByteOrder.LITTLE_ENDIAN, true));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+*/
         } else {
             this.putLShort(0);
         }

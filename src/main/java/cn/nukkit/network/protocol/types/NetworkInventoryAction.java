@@ -176,6 +176,8 @@ public class NetworkInventoryAction {
                             // No window open?
                             return null;
                         }
+                        if (Item.get(ItemID.DYE, 4).equals(this.oldItem, true, false))
+                            this.inventorySlot = 1; // Fake slot to store the metrial item.
                         return new SlotChangeAction(inventory.get(), this.inventorySlot, this.oldItem, this.newItem);
                     case SOURCE_TYPE_CRAFTING_RESULT:
                         return new CraftingTakeResultAction(this.oldItem, this.newItem);
@@ -236,11 +238,11 @@ public class NetworkInventoryAction {
                             }
                             break;
                         case SOURCE_TYPE_ENCHANT_MATERIAL:
-                            if (this.inventorySlot != 1) {
-                                // Material should only be in slot 1.
-                                // but the slot always 0 in 1.5 ???
+                            if (this.inventorySlot != 0) {
+                                // Material should only be in slot 0 when 1.5.
                                 return null;
                             }
+                            this.inventorySlot = 1; // Fake slot to store the metrial item.
                             break;
                         case SOURCE_TYPE_ENCHANT_OUTPUT:
                             if (this.inventorySlot != 0) {
@@ -264,12 +266,13 @@ public class NetworkInventoryAction {
                             } else {
                                 Item toEnchant = enchant.getItem(0);
                                 Item material = enchant.getItem(1);
-                                if (toEnchant.equals(this.newItem, true, true) &&
+                                if ((toEnchant.equals(this.newItem, true, false) || toEnchant.equals(this.oldItem, true, false)) &&
                                         (material.getId() == ItemID.DYE && material.getDamage() == 4 || player.isCreative())) {
                                     this.inventorySlot = 3; // Fake slot to store the resultant item.
 
-                                    //TODO: Check (old) item has valid enchantments
-                                    enchant.setItem(3, this.oldItem, false);
+                                    if (!this.oldItem.isNull())
+                                        //TODO: Check (old) item has valid enchantments
+                                        enchant.setItem(3, this.oldItem, false);
                                 } else {
                                     return null;
                                 }
